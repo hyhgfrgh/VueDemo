@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -43,14 +44,19 @@ public class Controller {
         return repo.findAll();
     }
 
-//    @GetMapping("/update")
-//    public void update(Long id,String name, BigDecimal price, Integer stock, String category, String img_url,String introduce){
-//        goods_info u = repo.findById(id);
-//        for(int i = 0;i<u.size();i++){
-//
-//
-//        }
-//    }
+    @GetMapping("/update")
+    public void update(Long id,String name, BigDecimal price, Integer stock, String category, String img_url,String introduce){
+        Optional<goods_info> u = repo.findById(id);
+        if(u.isPresent()){
+            goods_info good = u.get();
+            good.name = name;
+            good.introduce = introduce;
+            good.stock = stock;
+            good.price = price;
+            good.category = category;
+            good.img_url = img_url;
+        }
+    }
 
 
 

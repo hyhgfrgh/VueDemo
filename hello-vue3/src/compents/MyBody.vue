@@ -71,7 +71,7 @@
     <br></br>
     <button @click="update"> update</button>
 
-
+    
 
     <p>
         <img src="/img/ying.jpg" />
