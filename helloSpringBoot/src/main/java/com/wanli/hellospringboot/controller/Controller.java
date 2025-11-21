@@ -49,12 +49,12 @@ public class Controller {
         Optional<goods_info> u = repo.findById(id);
         if(u.isPresent()){
             goods_info good = u.get();
-            good.name = name;
-            good.introduce = introduce;
-            good.stock = stock;
-            good.price = price;
-            good.category = category;
-            good.img_url = img_url;
+            if(!(name == null || name.isEmpty())) good.name = name;
+            if(!(introduce == null || introduce.isEmpty())) good.introduce = introduce;
+            if(!(stock == null)) good.stock = stock;
+            if(!(price == null)) good.price = price;
+            if(!(category == null || category.isEmpty())) good.category = category;
+            if(!(img_url == null || img_url.isEmpty())) good.img_url = img_url;
         }
     }
 
