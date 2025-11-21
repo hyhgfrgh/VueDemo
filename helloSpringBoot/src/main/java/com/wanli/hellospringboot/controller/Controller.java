@@ -30,8 +30,8 @@ public class Controller {
 
     @GetMapping("/del")
     @Transactional
-    public void del(String name){
-        repo.deleteByName(name);
+    public void del(Long id){
+        repo.deleteById(id);
     }
 
     @GetMapping("/delAll")
@@ -55,6 +55,7 @@ public class Controller {
             if(!(price == null)) good.price = price;
             if(!(category == null || category.isEmpty())) good.category = category;
             if(!(img_url == null || img_url.isEmpty())) good.img_url = img_url;
+            repo.save(good);
         }
     }
 

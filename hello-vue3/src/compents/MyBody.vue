@@ -31,9 +31,9 @@
     <br></br>
     <input v-model="img_url" type = "url" placeholder="商品图片url"></input>
     <br></br>
-    <input v-model="stock" type = "url" placeholder="商品库存"></input>
+    <input v-model="stock" placeholder="商品库存"></input>
     <br></br>
-    <input v-model="introduce" type = "url" placeholder="商品介绍"></input>
+    <input v-model="introduce "  @keyup.enter="add" placeholder="商品介绍"></input>
     <br></br>
 
 
@@ -42,7 +42,7 @@
     <hr></hr>
 
     <br></br>
-    <input v-model="delname"  @keyup.enter="del"></input>
+    <input v-model="delId"  @keyup.enter="del"></input>
     <br></br>
     <button @click="del">DeleteById</button>
 
@@ -72,7 +72,6 @@
     <button @click="update"> update</button>
 
     
-
     <p>
         <img src="/img/ying.jpg" />
     </p>
@@ -86,7 +85,7 @@ import { onMounted, ref } from 'vue';
 
 
     const s = ref([]);
-    const delname = ref("")
+    const delId = ref("")
     const name = ref(""),img_url = ref(""),category = ref("")
     const price = ref(""),stock = ref(""),introduce = ref("")
 
@@ -111,13 +110,13 @@ import { onMounted, ref } from 'vue';
     function update(){
         axios.get("http://localhost:8080/update", {
             params: {
-                id: id.value,
-                name: name.value,
-                img_url: img_url.value,
-                category: category.value,
-                price: price.value,
-                stock: stock.value,
-                introduce: introduce.value
+                id: update_id.value,
+                name: update_name.value,
+                price: update_price.value,
+                stock: update_stock.value,
+                category: update_category.value,
+                img_url: update_img_url.value,
+                introduce: update_introduce.value
             }
         }).then((data)=>{getList();})
     }
@@ -125,7 +124,7 @@ import { onMounted, ref } from 'vue';
     function del(){
         axios.get("http://localhost:8080/del",{
             params: {
-                name: delname.value
+                id: delId.value
             }
         }).then((data)=>getList())
     }
