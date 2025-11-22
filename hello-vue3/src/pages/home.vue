@@ -76,8 +76,7 @@
 <script setup>
 import axios from 'axios';
 import { onMounted, ref } from 'vue';
-import Show from './show.vue';
-import details from './details.vue';
+import Show from '../compents/show.vue';
 
 
     const s = ref([]);

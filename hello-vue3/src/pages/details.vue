@@ -9,6 +9,7 @@
         <div v-else>
             {{ s.name}}
             {{ s.stock}}
+            <img :src="s.img_url"/>
         </div>
     </div>
 
