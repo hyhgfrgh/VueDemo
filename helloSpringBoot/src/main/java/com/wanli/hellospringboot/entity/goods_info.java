@@ -19,5 +19,8 @@ public class goods_info {
 
     public String img_url;
 
+    public goods_info() {
+        stock = -1;
+    }
 }
 

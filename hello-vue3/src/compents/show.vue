@@ -1,12 +1,24 @@
 <template>
     <div class="image-scroll">
         <div v-for="item in props.s" :key="item.id">
-            <img :src="item.img_url" class="scroll-img" />
-            {{ item.id }}
+                <img :src="item.img_url" class="scroll-img" @click="()=>{
+                    router.push({name: 'details',query:{id: item.id}})
+                }" />
+                {{ item.id }}
+        </div>
     </div>
-</div>
 
+    <!-- <button @click="deleteAll">deleteAllData</button> -->
 
+    <!-- <p v-for="item in s">
+
+        {{ item.name  }}  商品id: {{ item.id }}
+        <br></br>
+        $: {{ item.price }} 
+        <br></br>
+        <img :src=item.img_url width="200" />
+
+    </p> -->
 
 </template>
 
@@ -30,9 +42,14 @@
     border-radius: 5px;
     }
 
+
 </style>
 
 <script setup>
+import axios from 'axios';
+import { useRouter } from 'vue-router';
+
+    const router = useRouter()
     const props = defineProps({
         s: Array
     })

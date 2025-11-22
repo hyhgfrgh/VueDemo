@@ -12,14 +12,14 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
-@RestController
+@RestController()
 @CrossOrigin(origins = "*")
 public class Controller {
 
     @Autowired
     private GoodsRepository repo;
 
-    @GetMapping("/add")
+    @GetMapping("/api/add")
     public void add(String name, BigDecimal price, Integer stock, String category, String img_url,String introduce){
         goods_info u = new goods_info();
         u.name = name;u.stock = stock;
@@ -28,23 +28,23 @@ public class Controller {
         repo.save(u);
     }
 
-    @GetMapping("/del")
+    @GetMapping("/api/del")
     @Transactional
     public void del(Long id){
         repo.deleteById(id);
     }
 
-    @GetMapping("/delAll")
+    @GetMapping("/api/delAll")
     public void delAll(){
         repo.deleteAll();
     }
 
-    @GetMapping("/list")
+    @GetMapping("/api/list")
     public List<goods_info>  list(){
         return repo.findAll();
     }
 
-    @GetMapping("/update")
+    @GetMapping("/api/update")
     public void update(Long id,String name, BigDecimal price, Integer stock, String category, String img_url,String introduce){
         Optional<goods_info> u = repo.findById(id);
         if(u.isPresent()){
@@ -59,7 +59,10 @@ public class Controller {
         }
     }
 
-
-
+    @GetMapping("/api/find")
+    public goods_info find(Long id){
+        Optional<goods_info> u = repo.findById(id);
+        return u.orElseGet(goods_info::new);
+    }
 
 }
