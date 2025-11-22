@@ -27,8 +27,9 @@
     <br></br>
     <input v-model="introduce "  @keyup.enter="add" placeholder="商品介绍"></input>
     <br></br>
-
-    <el-button @click="add" type="primary" round>Save</el-button>
+    <input type="file" @change="handleFile" accept="image/*" />
+    <button @click="uploadImage" :disabled="!file">上传</button>
+    <!-- <el-button @click="add" type="primary" round>Save</el-button> -->
     <button @click="add">Save</button>
 
     <hr></hr>
@@ -134,6 +135,32 @@ import Show from '../compents/show.vue';
             s.value = data.data
         })
     }
+
+const file = ref(null)
+const previewUrl = ref(null)
+const result = ref(null)
+function handleFile(e) {
+  file.value = e.target.files[0]
+  previewUrl.value = URL.createObjectURL(file.value)
+}
+
+async function uploadImage() {
+  if (!file.value) return alert("请选择图片")
+
+  const form = new FormData()
+  form.append("file", file.value)
+  form.append("strategy_id", 1) // 根据你的需求填写
+
+  const res = await axios.post("http://139.196.142.19:59803/api/v1/upload", form, {
+    headers: {
+      "Content-Type": "multipart/form-data"
+    }
+  })
+
+  result.value = res.data.data
+  img_url.value = res.data.data.links.url
+  add()
+}
     
     onMounted(()=>{
         getList()   
