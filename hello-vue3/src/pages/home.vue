@@ -1,13 +1,13 @@
 <template>
 
-    <h1>商店交易系统</h1>
-    <h3>制作人:
-        张万里,周锐强,张云涛</h3>
+    <!-- <h1>商店交易系统</h1> -->
+    <!-- <h3>制作人: -->
+        <!-- 张万里,周锐强,张云涛</h3>
     <p>学校:
         <a style="color:blueviolet;" href="https://www.cwxu.edu.cn/"title="无锡学院官网链接">
             Wuxi University
         </a>
-    </p>
+    </p> -->
     <hr>
 
     
