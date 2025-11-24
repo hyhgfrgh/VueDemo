@@ -30,6 +30,7 @@ public class Controller {
 
     @GetMapping("/api/del")
     @Transactional
+
     public void del(Long id){
         repo.deleteById(id);
     }

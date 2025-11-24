@@ -104,7 +104,7 @@ import Show from '../compents/show.vue';
     }
 
     function update(){
-        axios.get("api/update", {
+        axios.get("/api/update", {
             params: {
                 id: update_id.value,
                 name: update_name.value,
@@ -118,7 +118,7 @@ import Show from '../compents/show.vue';
     }
 
     function del(){
-        axios.get("api/del",{
+        axios.get("/api/del",{
             params: {
                 id: delId.value
             }
@@ -126,41 +126,40 @@ import Show from '../compents/show.vue';
     }
 
     function deleteAll(){
-        axios.get("api/delAll").then((data)=>{s.value = []})
+        axios.get("/api/delAll").then((data)=>{s.value = []})
     }
     
     function getList(){
-        axios.get("api/list").then((data)=>{
+        axios.get("/api/list").then((data)=>{
             // console.log(data.data[0].name)
             s.value = data.data
         })
     }
 
-const file = ref(null)
-const previewUrl = ref(null)
-const result = ref(null)
-function handleFile(e) {
-  file.value = e.target.files[0]
-  previewUrl.value = URL.createObjectURL(file.value)
-}
-
-async function uploadImage() {
-  if (!file.value) return alert("请选择图片")
-
-  const form = new FormData()
-  form.append("file", file.value)
-  form.append("strategy_id", 1) // 根据你的需求填写
-
-  const res = await axios.post("http://139.196.142.19:59803/api/v1/upload", form, {
-    headers: {
-      "Content-Type": "multipart/form-data"
+    const file = ref(null)
+    const previewUrl = ref(null)
+    const result = ref(null)
+    function handleFile(e) {
+        file.value = e.target.files[0]
+        previewUrl.value = URL.createObjectURL(file.value)
     }
-  })
 
-  result.value = res.data.data
-  img_url.value = res.data.data.links.url
-  add()
-}
+    async function uploadImage() {
+        if (!file.value) return alert("请选择图片")
+
+        const form = new FormData()
+        form.append("file", file.value)
+        form.append("strategy_id", 1)
+
+        const res = await axios.post("http://139.196.142.19:59803/api/v1/upload", form, {
+            headers: {
+            "Content-Type": "multipart/form-data"
+            }
+        })
+        result.value = res.data.data
+        img_url.value = res.data.data.links.url
+        add()
+    }
     
     onMounted(()=>{
         getList()   
