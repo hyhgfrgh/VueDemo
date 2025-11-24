@@ -21,24 +21,32 @@
     <br></br>
     <input v-model="category" placeholder="该商品的种类"></input>
     <br></br>
-    <input v-model="img_url" type = "url" placeholder="商品图片url"></input>
-    <br></br>
+    <!-- <input v-model="img_url" type = "url" placeholder="商品图片url"></input>
+    <br></br> -->
+    <!-- <br></br> -->
     <input v-model="stock" placeholder="商品库存"></input>
     <br></br>
     <input v-model="introduce "  @keyup.enter="add" placeholder="商品介绍"></input>
     <br></br>
     <input type="file" @change="handleFile" accept="image/*" />
-    <button @click="uploadImage" :disabled="!file">上传</button>
+    <button @click="uploadImage" :disabled="!file || !name" >上传</button>
     <!-- <el-button @click="add" type="primary" round>Save</el-button> -->
-    <button @click="add">Save</button>
+    <!-- <button @click="add" :disabled="!name">Save</button> -->
+    <br></br>
+    <p v-if="!name" style="color: red">未输入商品名称</p>
+    <p v-if="!file" style="color: red">暂未选择图片</p>
+    <p v-else style="color: green">图片上传成功!</p>
+    <br></br>
+
+
+
 
     <hr></hr>
-
     <br></br>
     <input v-model="delId"  @keyup.enter="del"></input>
     <br></br>
     <button @click="del">DeleteById</button>
-
+    <br></br>
     <hr></hr>
 
 
@@ -153,12 +161,14 @@ import Show from '../compents/show.vue';
 
         const res = await axios.post("http://139.196.142.19:59803/api/v1/upload", form, {
             headers: {
-            "Content-Type": "multipart/form-data"
+                "Content-Type": "multipart/form-data"
             }
         })
         result.value = res.data.data
         img_url.value = res.data.data.links.url
         add()
+        file.value = ""
+        name.value = ""
     }
     
     onMounted(()=>{
