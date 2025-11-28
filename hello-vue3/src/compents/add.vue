@@ -109,7 +109,6 @@
     
 
 
-
     function clearForm() {
         name.value = "";
         img_url.value = "";

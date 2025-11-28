@@ -66,4 +66,24 @@ public class Controller {
         return u.orElseGet(goods_info::new);
     }
 
+
+    @GetMapping("/api/auth/login")
+    public Boolean login(){
+
+
+
+
+
+        return true;
+    }
+    @GetMapping("/api/register")
+    public Boolean register(){
+
+
+
+
+
+        return true;
+    }
+
 }

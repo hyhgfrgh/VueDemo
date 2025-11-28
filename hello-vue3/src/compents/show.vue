@@ -24,9 +24,9 @@
     }
 
     .scroll-img {
-    height: 150px;
-    flex-shrink: 0;
-    border-radius: 5px;
+        height: 150px;
+        flex-shrink: 0;
+        border-radius: 5px;
     }
 
 
