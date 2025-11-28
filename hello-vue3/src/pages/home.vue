@@ -1,13 +1,13 @@
 <template>
 
-    <!-- <h1>商店交易系统</h1> -->
-    <!-- <h3>制作人: -->
-        <!-- 张万里,周锐强,张云涛</h3>
+    <h1>商店交易系统</h1>
+    <h3>制作人:
+        xxxx</h3>
     <p>学校:
         <a style="color:blueviolet;" href="https://www.cwxu.edu.cn/"title="无锡学院官网链接">
             Wuxi University
         </a>
-    </p> -->
+    </p>
     <hr>
 
     
@@ -15,27 +15,36 @@
 
 
     <br></br>
-    <input v-model="name"  placeholder="商品名称"></input>
+    <input v-model="name"  placeholder="商品名称" required/>
     <br></br>
-    <input v-model="price" placeholder="该商品的价格"></input>
+    <input v-model="price" placeholder="该商品的价格" required/>
     <br></br>
-    <input v-model="category" placeholder="该商品的种类"></input>
+    <input v-model="category" placeholder="该商品的种类" required/>
     <br></br>
-    <!-- <input v-model="img_url" type = "url" placeholder="商品图片url"></input>
-    <br></br> -->
+    
     <!-- <br></br> -->
-    <input v-model="stock" placeholder="商品库存"></input>
+    <input v-model="stock" placeholder="商品库存" required/>
     <br></br>
-    <input v-model="introduce "  @keyup.enter="add" placeholder="商品介绍"></input>
+    <input v-model="introduce "  @keyup.enter="add" placeholder="商品介绍" required/>
+    <br></br>
+    <input v-model="img_url" type = "url" placeholder="商品图片url" required/>
     <br></br>
     <input type="file" @change="handleFile" accept="image/*" />
-    <button @click="uploadImage" :disabled="!file || !name" >上传</button>
+    <button @click="uploadImage" :disabled="!file" >上传</button>
     <!-- <el-button @click="add" type="primary" round>Save</el-button> -->
-    <!-- <button @click="add" :disabled="!name">Save</button> -->
+     
+    <button @click="add" :disabled="!name">Save</button>
     <br></br>
     <p v-if="!name" style="color: red">未输入商品名称</p>
-    <p v-if="!file" style="color: red">暂未选择图片</p>
-    <p v-else style="color: green">图片上传成功!</p>
+
+
+    <p v-if="!img_url" style="color: red">暂未选择图片</p>
+    <p v-else style="color: green">
+        图片选择成功!
+        <br></br>
+        图片预览:
+        <img :src="img_url" width="50"></img>
+    </p>
     <br></br>
 
 
@@ -159,14 +168,13 @@ import Show from '../compents/show.vue';
         form.append("file", file.value)
         form.append("strategy_id", 1)
 
-        const res = await axios.post("http://139.196.142.19:59803/api/v1/upload", form, {
+        const res = await axios.post("http://image.wanli.zhiyuansofts.cn/api/v1/upload", form, {
             headers: {
                 "Content-Type": "multipart/form-data"
             }
         })
         result.value = res.data.data
         img_url.value = res.data.data.links.url
-        add()
         file.value = ""
         name.value = ""
     }
