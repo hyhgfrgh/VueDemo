@@ -1,40 +1,38 @@
 <template>
-  <div class="login-container">
-    <h2>用户登录</h2>
-    
-    <form @submit.prevent="handleLogin" class="login-form">
-      <div class="form-group">
-        <label for="username">用户名/邮箱:</label>
-        <input 
-          id="username" 
-          type="text" 
-          v-model="credentials.username" 
-          required
-        >
-      </div>
-     
-      <div class="form-group">
-        <label for="password">密码:</label>
-        <input 
-          id="password" 
-          type="password" 
-          v-model="credentials.password" 
-          required
-        >
-      </div>
+    <div class="page-background">
+        <div class="login-container">
+            <h2>用户登录</h2>
+        
+            <form @submit.prevent="handleLogin" class="login-form">
+                <div class="form-group">
+                    <label for="username">用户名/邮箱:</label>
+                    <input id="username" type="text" v-model="credentials.username" required>
+                </div>
+            
+                <div class="form-group">
+                    <label for="password">密码:</label>
+                    <input 
+                    id="password" 
+                    type="password" 
+                    v-model="credentials.password" 
+                    required
+                    >
+                </div>
 
-      <p v-if="error" class="error-message">{{ error }}</p>
+                <p v-if="error" class="error-message">{{ error }}</p>
 
-      <button type="submit" :disabled="isLoading">
-        {{ isLoading ? '登录中...' : '登录' }}
-      </button>
-    </form>
-    
-    <p class="register-link">
-      还没有账号？<router-link to="/register">立即注册</router-link>
-    </p>
-  </div>
+                <button type="submit" :disabled="isLoading">
+                    {{ isLoading ? '登录中...' : '登录' }}
+                </button>
+            </form>
+            
+            <p class="register-link">
+            还没有账号？<router-link to="/register">立即注册</router-link>
+            </p>
+        </div>
+    </div>
 </template>
+
 
 <script setup>
     // 导入 Vue 核心功能
@@ -42,15 +40,15 @@
     // 导入路由实例，用于导航
     import { useRouter } from 'vue-router';
     // 导入之前创建的认证服务
-    import { login } from '../auth'; 
+    import { login } from '@/services/auth'; 
 
     // 获取路由实例
     const router = useRouter();
 
     // 定义响应式数据
     const credentials = reactive({
-    username: '',
-    password: ''
+        username: '',
+        password: ''
     });
 
     const isLoading = ref(false);
@@ -93,66 +91,90 @@
 <style scoped>
     /* 简单的 CSS 样式，您可以根据需要美化 */
     .login-container {
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    text-align: center;
+        max-width: 400px;
+        margin: 50px auto;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        text-align: center;
+        background-color: rgba(80, 180, 216, 0.4);
     }
-
+    .page-background {
+        /* 使其占据整个视口 */
+        position: fixed; /* 固定在视口，不随滚动条移动 */
+        top: 0;
+        left: 0;
+        width: 100vw;   /* 100% 视口宽度 */
+        height: 100vh;  /* 100% 视口高度 */
+        
+        /* 设置背景图片 */
+        background-image: url('public/img/xiaogong.png'); /* !!! 替换成你的图片路径 !!! */
+        background-size: cover;       /* 确保图片覆盖整个容器，可能会裁剪 */
+        background-position: center;  /* 图片居中显示 */
+        background-repeat: no-repeat; /* 防止图片重复 */
+        
+        /* 确保登录容器能在其内部居中 */
+        display: flex;
+        justify-content: center; /* 水平居中 */
+        align-items: center;     /* 垂直居中 */
+        
+        /* 可以根据需要添加一个半透明的蒙版，使登录框更突出 */
+        background-color: rgba(80, 180, 216, 0.8); /* 灰色半透明蒙版 */ 
+    }
     .login-form {
-    display: flex;
-    flex-direction: column;
+        display: flex;
+        flex-direction: column;
     }
 
     .form-group {
-    text-align: left;
-    margin-bottom: 15px;
+        text-align: left;
+        margin-bottom: 15px;
     }
 
     label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
     }
 
     input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box; /* 确保 padding 不会增加宽度 */
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box; /* 确保 padding 不会增加宽度 */
     }
 
     button {
-    padding: 10px 15px;
-    background-color: #42b983; /* Vue 绿色 */
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s;
+        padding: 10px 15px;
+        background-color: #42b983; /* Vue 绿色 */
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s;
     }
 
     button:hover:not(:disabled) {
-    background-color: #368e65;
+        background-color: #368e65;
     }
 
     button:disabled {
-    background-color: #a3d9bf;
-    cursor: not-allowed;
+        background-color: #a3d9bf;
+        cursor: not-allowed;
     }
 
     .error-message {
-    color: red;
-    margin-top: -10px;
-    margin-bottom: 15px;
+        color: red;
+        margin-top: -10px;
+        margin-bottom: 15px;
     }
 
     .register-link {
         margin-top: 20px;
         font-size: 0.9em;
     }
+
+    
 </style>
