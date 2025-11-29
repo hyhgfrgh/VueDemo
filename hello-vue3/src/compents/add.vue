@@ -21,7 +21,7 @@
                 rows="4"
                 class="big-input"
                 required
-            ></textarea>
+            />
             <br></br>
             <input v-model="img_url" type = "url" placeholder="商品图片url" required/>
             <br></br>
